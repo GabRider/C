@@ -132,14 +132,10 @@ void print(Element *list)
     currentElement=(*currentElement).next;
   }
 }
-/*int oper(int n)
-{
-
-}
-void apply(Element *list, int (*oper(int n)))
+void apply(Element *list, int (*oper)(int n))
 {
   Element *currentElement=list;
   while (currentElement!= NULL) {
 
   }
-}*/
+}
