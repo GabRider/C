@@ -38,11 +38,11 @@ Element* insert_tail(Element *list, int data)
   if (is_empty(list)) {
     return tmp;
   }
-  while (!is_empty((*currentElement).next))
+  while (!is_empty(currentElement->next))
   {
-    currentElement= (*currentElement).next;
+    currentElement= currentElement->next;
   }
-  (*currentElement).next= tmp;
+  currentElement->next= tmp;
     return list;
 }
 Element* search(Element *list, int data)
@@ -50,7 +50,7 @@ Element* search(Element *list, int data)
   Element *currentElement=list;
   while (currentElement!=NULL)
   {
-    if ((*currentElement).content==data) {
+    if (currentElement->content==data) {
       return currentElement;
     }
 
@@ -65,21 +65,21 @@ Element* removes(Element *list, int data)
 
   while (currentElement!=NULL)
   {
-    //printf("%d\n",(*currentElement).content );
-    if ((*currentElement).content==data) {
+    //printf("%d\n",currentElement->content );
+    if (currentElement->content==data) {
       tmp =currentElement;
       if (!is_empty(LastElement)) {
 
-        (*LastElement).next = (*currentElement).next;
+        (*LastElement).next = currentElement->next;
       }
       else
       {
-        list=(*currentElement).next;
+        list=currentElement->next;
       }
       break;
     }
     LastElement= currentElement;
-    currentElement= (*currentElement).next;
+    currentElement= currentElement->next;
   }
   (*tmp).next=NULL;
   return tmp;
@@ -101,7 +101,7 @@ void freeL(Element *list)
   Element *currentElement=list;
   while (!is_empty(currentElement))
   {
-    if (is_empty((*currentElement).next))
+    if (is_empty(currentElement->next))
      {
       if ((*list).next == NULL) {
         free(currentElement);
@@ -119,30 +119,24 @@ void freeL(Element *list)
     else
     {
       LastElement=currentElement;
-      currentElement= (*currentElement).next;
+      currentElement= currentElement->next;
     }
   }
 }
-void print(Element *list)
+int print(int n)
 {
-  Element *currentElement=list;
-  while (currentElement!=NULL)
-  {
-    printf("%d\n",(*currentElement).content );
-    currentElement=(*currentElement).next;
-  }
+  printf("%d\n",n );
+    return n;
 }
-int* squartRoot(int n)
+int squartRoot(int n)
   {
-  int *pointer;
-  int tmp= (int)sqrt(n);
-  pointer=&tmp;
-  return pointer;
+  return (int)sqrt((double)n);
   }
-void apply(Element *list, int (*oper)(int n))
+void apply(Element *list, int (*oper)(int))
 {
   Element *currentElement=list;
   while (currentElement!= NULL) {
-    (*currentElement).content= oper((*currentElement).content);
+    currentElement->content= oper(currentElement->content);
+    currentElement=currentElement->next;
   }
 }

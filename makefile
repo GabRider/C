@@ -9,7 +9,7 @@ liste_simple: liste_simple.c
 test: test.c
 	$(CC) test.c
 link:
-	gcc -g liste_simple.o test.o -o list
+	gcc -g liste_simple.o test.o -o list -lm
 launch:
 	./list
 cleanTerminal:
