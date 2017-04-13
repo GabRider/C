@@ -18,6 +18,7 @@ Element* search(Element *list, int data);
 Element* removes(Element *list, int data);
 unsigned int count(Element *list);
 void freeL(Element *list);
-void print(Element *list);
-void apply(Element *list, int (*oper(int n)));
+int print(int n);
+int squartRoot(int n);
+void apply(Element *list, int (*oper)(int n));
 #endif
