@@ -120,7 +120,7 @@ void freeL(Element *list)
     {
       LastElement=currentElement;
       currentElement= (*currentElement).next;
-    }
+    } 
   }
 }
 void print(Element *list)
