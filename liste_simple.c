@@ -120,7 +120,7 @@ void freeL(Element *list)
     {
       LastElement=currentElement;
       currentElement= (*currentElement).next;
-    } 
+    }
   }
 }
 void print(Element *list)
@@ -132,10 +132,17 @@ void print(Element *list)
     currentElement=(*currentElement).next;
   }
 }
+int* squartRoot(int n)
+  {
+  int *pointer;
+  int tmp= (int)sqrt(n);
+  pointer=&tmp;
+  return pointer;
+  }
 void apply(Element *list, int (*oper)(int n))
 {
   Element *currentElement=list;
   while (currentElement!= NULL) {
-
+    (*currentElement).content= oper((*currentElement).content);
   }
 }
