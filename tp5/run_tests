@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "Running validation tests on all students' directories..."
+
+for i in src/*; do
+	echo ""
+	echo "========================================================="
+	# Delete binaries, object files and candidate files
+	make STUDENT=$i clean
+
+	# Compile code
+	echo "Compiling [$i]"
+	make --silent -C $i
+
+	# Run tests
+	echo "Running tests for [$i]"
+	make STUDENT=$i
+done

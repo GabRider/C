@@ -1,0 +1,24 @@
+#!/bin/bash
+
+appname=`basename $0`
+
+if [ $# -ne 2 ]; then
+	echo "$appname <file1> <file2>" >&2
+	echo "Check the words in both files are identical." >&2
+	echo "If not, print the number of differences." >&2
+	exit 1
+fi
+
+#count=`diff --suppress-blank-empty --ignore-case --ignore-tab-expansion --ignore-space-change --ignore-blank-lines -d test_heapsort.out candidate | grep "^---" | wc -l`
+
+count=`wdiff --no-common $1 $2 | grep "^================" | wc -l`
+let "count--"
+if [ $count == 0 ]; then
+	echo "OK!"
+else
+	echo "FAILED: $count error(s)!"
+fi
+
+# We don't want to generate an error otherwise it would
+# stop the testing process if used in a makefile
+exit 0
