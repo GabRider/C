@@ -83,7 +83,7 @@ void matrix_free(m_double*m)
   {
     if (m!=NULL)
     {
-      free(m->content[0]);
+        free(m->content[0]);
       free(m->content);
       free(m);
   }
