@@ -9,23 +9,23 @@ Description :   sort any list of number
 #include <stdio.h>
 #include <string.h>
 /**
- * check if the first number is bigger than second
- * @param  a pointer of int
- * @param  b pointer of int
- * @return   true if a is bigger
- */
+* check if the first number is bigger than second
+* @param  a pointer of int
+* @param  b pointer of int
+* @return   true if a is bigger
+*/
 bool bigger_than(int* a,int* b)
 {
-if (*a>*b)
+  if (*a>*b)
   return true;
-else
+  else
   return false;
 }
 /**
- * sort the table of pointer
- * @param table  table of pointer of int
- * @param nb_max size of table
- */
+* sort the table of pointer
+* @param table  table of pointer of int
+* @param nb_max size of table
+*/
 void bullet_sort(int ** table,int nb_max)
 {
   int max=nb_max;
@@ -43,10 +43,10 @@ void bullet_sort(int ** table,int nb_max)
   }
 }
 /**
- * check if a table of char is a number
- * @param  number table of char
- * @return        true if int
- */
+* check if a table of char is a number
+* @param  number table of char
+* @return        true if int
+*/
 bool is_number(char* number)
 {
   int cnt=0;
@@ -60,10 +60,10 @@ bool is_number(char* number)
   return true;
 }
 /**
- * print the table sorted
- * @param table table of pointer
- * @param max   size of table
- */
+* print the table sorted
+* @param table table of pointer
+* @param max   size of table
+*/
 void print_table_sort(int** table,int  max)
 {
   for (int i = 0; i < max; i++) {

@@ -17,9 +17,9 @@ Element* list_create()
 bool list_empty(Element *head)
 {
   if (head!= NULL )
-    return false;
+  return false;
   else
-    return true;
+  return true;
 }
 
 Element* list_move(Element* head)
@@ -30,32 +30,32 @@ Element* list_move(Element* head)
 Element* insert_after(Element *head, void* data)
 {
   Element *tmp=  allocation();
-    tmp->content=data;
-    if (!list_empty(head) ) {
-      tmp->next = head->next;
-      head->next=tmp;
-    }
-    else
-    {
-      tmp->next=tmp;
-    }
-    return tmp;
+  tmp->content=data;
+  if (!list_empty(head) ) {
+    tmp->next = head->next;
+    head->next=tmp;
+  }
+  else
+  {
+    tmp->next=tmp;
+  }
+  return tmp;
 }
 
 Element* insert_before(Element *head, void* data)
 {
   Element* tmp;
   void* old_content_head;
-    if (!list_empty(head) ) {
-      old_content_head= head->content;
-      head->content=data;
-      tmp=insert_after(head,old_content_head);
-    }
-    else
-    {
+  if (!list_empty(head) ) {
+    old_content_head= head->content;
+    head->content=data;
+    tmp=insert_after(head,old_content_head);
+  }
+  else
+  {
     tmp =insert_after(head,data);
-    }
-    return tmp;
+  }
+  return tmp;
 }
 
 int compare_int(void* a, void* b)
@@ -100,7 +100,7 @@ Element* list_remove(Element *head, void* data, int (*compare)(void*,void*))
   while (1)
   {
     if (&(tmp->next)==&head && compare(tmp->content,&data))
-     {
+    {
       head->content= head->next->content;
       removed= head->next;
       head->next=removed->next;
@@ -130,10 +130,10 @@ unsigned int list_count(Element *head)
   }
   return cnt;
 }
-  void case_free(Element*head)
-  {
-    free(list_remove(head,head->content,compare_int));
-  }
+void case_free(Element*head)
+{
+  free(list_remove(head,head->content,compare_int));
+}
 void list_free(Element *head, void (*data_free)(void*))
 {
   while (head!=NULL) {
