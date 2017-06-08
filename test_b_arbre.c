@@ -6,5 +6,13 @@ int main(int argc, char const *argv[]) {
   insert(tree,20);
   insert(tree,5);
   insert(tree,6);
+  insert(tree,100);
+  insert(tree,203);
+  insert(tree,565);
+  insert(tree,-6);
+  insert(tree,-10);
+  insert(tree,-20);
+  insert(tree,-5);
+  insert(tree,-66);
   return 0;
 }
