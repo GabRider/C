@@ -7,4 +7,5 @@ b_arbre: b_arbre.c
 	$(CC) test_b_arbre.c
 	gcc b_arbre.o test_b_arbre.o -o b_arbre
 cleanTerminal:
+	
 	tput reset

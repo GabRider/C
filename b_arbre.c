@@ -20,6 +20,37 @@ Page* new_page(int order)
   pg->tab=tab;
   return pg;
 }
+int rechercheDicho(Page *pg, int clef){
+  int id_begin=1;
+  int id_end= pg->nb;
+  int id_middle=0;
+  while ((id_begin!=id_end)&&(id_end - id_begin >1))
+  {
+    id_middle=1+(id_end/2);
+    if (pg->tab[id_middle].clef==clef) {
+      return -1;
+    }
+    if (pg->tab[id_middle].clef>clef)
+    {
+      id_end=id_middle;
+    }
+    else
+    {
+      id_begin=id_middle;
+    }
+  }
+  if (pg->tab[id_end].clef==clef) {
+    return -1;
+  }
+  if (id_end == pg->nb) {
+    if (pg->tab[id_end].clef<clef)
+    {
+
+      return id_end+1;
+    }
+  }
+  return id_end;
+}
 int position(Page*pg,int clef)
 {
   for (int i = 1; i < pg->nb; i++){
@@ -55,19 +86,20 @@ Page*insert(Page* b_tree,int clef)
 }
 Page*insert_case(Page* b_tree,Element*cell,int depth)
 {
-  int pos = position(b_tree,cell->clef);
+  //int pos = position(b_tree,cell->clef);
+  int pos = rechercheDicho(b_tree,cell->clef);
   if (b_tree->tab[pos-1].pg!=NULL)
   {
-     insert_case(b_tree->tab[pos-1].pg,cell,depth++);
-     if (cell->pg!=NULL) {
-       place(b_tree,cell);
-     }
+    insert_case(b_tree->tab[pos-1].pg,cell,depth++);
+    if (cell->pg!=NULL) {
+      place(b_tree,cell);
+    }
   }
   else
   {
-  place(b_tree,cell);
+    place(b_tree,cell);
   }
-return b_tree;
+  return b_tree;
 }
 void split(Page* pg, Element*cell)
 {
@@ -81,13 +113,14 @@ void split(Page* pg, Element*cell)
   }
 
   cell->clef=pg->tab[pg->nb].clef;
-pg->nb-=1;
+  pg->nb-=1;
   cell->pg= right;
 
 }
 int place(Page* pg,Element* cell)
 {
-  int new_place=position(pg,cell->clef);
+  //int new_place=position(pg,cell->clef);
+  int new_place=rechercheDicho(pg,cell->clef);
   if(new_place<0)
   {
     return 0;
@@ -110,5 +143,45 @@ int place(Page* pg,Element* cell)
   {
     cell->pg=NULL;
   }
-    return 1;
+  return 1;
+}
+void display_GRD(Page * b_tree)
+{
+  for (int i = 0; i <= b_tree->nb; i++)
+  {
+    if (b_tree->tab[i].pg !=NULL)
+    {
+      if (i!=0)
+      {
+        printf("%d\n",b_tree->tab[i].clef );
+      }
+      display_GRD(b_tree->tab[i].pg);
+    }
+    else
+    {
+      if (i!=0)
+      {
+        printf("%d\n",b_tree->tab[i].clef );
+      }
+    }
+  }
+}
+
+void display_RGD(Page * b_tree,int depth)
+{
+  int indent=5;
+  int new_depth= depth+1;
+  printf("%*c", indent*depth,' ' );
+  for (int i = 1; i <= b_tree->nb; i++)
+  {
+    printf("%d ",b_tree->tab[i].clef);
+  }
+  printf("\n");
+  for (int i = 0; i <= b_tree->nb; i++)
+  {
+    if (b_tree->tab[i].pg !=NULL)
+    {
+      display_RGD(b_tree->tab[i].pg,new_depth);
+    }
+  }
 }
