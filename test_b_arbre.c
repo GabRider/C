@@ -14,7 +14,7 @@ int main(int argc, char const *argv[]) {
   insert(tree,-20);
   insert(tree,-5);
   insert(tree,-66);
-  display_GRD(tree);
-  //display_RGD(tree,0);
+  //display_GRD(tree);
+  display_RGD(tree,0);
   return 0;
 }

@@ -20,38 +20,32 @@ Page* new_page(int order)
   pg->tab=tab;
   return pg;
 }
-int rechercheDicho(Page *pg, int clef){
+int position(Page *pg, int key)
+{
   int id_begin=1;
-  int id_end= pg->nb;
+  int id_end=pg->nb;
   int id_middle=0;
-  while ((id_begin!=id_end)&&(id_end - id_begin >1))
+  while(id_begin<=id_end)
   {
-    id_middle=1+(id_end/2);
-    if (pg->tab[id_middle].clef==clef) {
+    //trouver le milieu entre le min et le max
+    id_middle = (id_begin+id_end)/2;
+    if(pg->tab[id_middle].clef==key)
+    {
       return -1;
     }
-    if (pg->tab[id_middle].clef>clef)
+    if(pg->tab[id_middle].clef>key)
     {
-      id_end=id_middle;
+      //on sait que le milieu est + grand alors on enleve 1
+      id_end=id_middle-1;
     }
-    else
-    {
-      id_begin=id_middle;
-    }
-  }
-  if (pg->tab[id_end].clef==clef) {
-    return -1;
-  }
-  if (id_end == pg->nb) {
-    if (pg->tab[id_end].clef<clef)
-    {
-
-      return id_end+1;
+    else{
+      //on sait que le milieu est plus petit donc +1
+      id_begin=id_middle+1;
     }
   }
-  return id_end;
+  return id_begin;
 }
-int position(Page*pg,int clef)
+/*int position(Page*pg,int clef)
 {
   for (int i = 1; i < pg->nb; i++){
     if (pg->tab[i].clef==clef) {
@@ -64,7 +58,7 @@ int position(Page*pg,int clef)
   }
   return pg->nb+1;
 }
-
+*/
 Page*insert(Page* b_tree,int clef)
 {
   int depth=0;
@@ -86,8 +80,7 @@ Page*insert(Page* b_tree,int clef)
 }
 Page*insert_case(Page* b_tree,Element*cell,int depth)
 {
-  //int pos = position(b_tree,cell->clef);
-  int pos = rechercheDicho(b_tree,cell->clef);
+  int pos = position(b_tree,cell->clef);
   if (b_tree->tab[pos-1].pg!=NULL)
   {
     insert_case(b_tree->tab[pos-1].pg,cell,depth++);
@@ -119,8 +112,7 @@ void split(Page* pg, Element*cell)
 }
 int place(Page* pg,Element* cell)
 {
-  //int new_place=position(pg,cell->clef);
-  int new_place=rechercheDicho(pg,cell->clef);
+  int new_place=position(pg,cell->clef);
   if(new_place<0)
   {
     return 0;
