@@ -18,4 +18,5 @@ Page*insert_case(Page* b_tree,Element*cell,int depth);
 int place(Page* pg,Element* cell);
 void display_GRD(Page * b_tree);
 void display_RGD(Page * b_tree,int depth);
+int search(Page *b_tree,int clef);
 #endif

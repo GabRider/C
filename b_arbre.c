@@ -137,6 +137,17 @@ int place(Page* pg,Element* cell)
   }
   return 1;
 }
+int search(Page *b_tree,int clef)
+{
+  int pos= position(b_tree,clef);
+  if (pos<0) {
+    return 1;
+  }
+  if (b_tree->tab[pos-1].pg!=NULL) {
+    return search(b_tree->tab[pos-1].pg,clef);
+  }
+  return 0;
+}
 void display_GRD(Page * b_tree)
 {
   for (int i = 0; i <= b_tree->nb; i++)

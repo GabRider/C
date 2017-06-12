@@ -1,4 +1,5 @@
 #include "b_arbre.h"
+#include <stdio.h>
 int main(int argc, char const *argv[]) {
   Page*tree= new_page(2);
   insert(tree,3);
@@ -14,7 +15,9 @@ int main(int argc, char const *argv[]) {
   insert(tree,-20);
   insert(tree,-5);
   insert(tree,-66);
-  //display_GRD(tree);
+  display_GRD(tree);
   display_RGD(tree,0);
+  printf("%d\n",search(tree,3) );
+  printf("%d\n",search(tree,122) );
   return 0;
 }
