@@ -20,45 +20,31 @@ Page* new_page(int order)
   pg->tab=tab;
   return pg;
 }
-int position(Page *pg, int key)
+int position(Page *pg, int clef)
 {
   int id_begin=1;
   int id_end=pg->nb;
   int id_middle=0;
   while(id_begin<=id_end)
   {
-    //trouver le milieu entre le min et le max
+    //middle between min and max
     id_middle = (id_begin+id_end)/2;
-    if(pg->tab[id_middle].clef==key)
+    if(pg->tab[id_middle].clef==clef)
     {
       return -1;
     }
-    if(pg->tab[id_middle].clef>key)
+    if(pg->tab[id_middle].clef>clef)
     {
-      //on sait que le milieu est + grand alors on enleve 1
+      //middle is bigger than clef so remove 1
       id_end=id_middle-1;
     }
     else{
-      //on sait que le milieu est plus petit donc +1
+      //middle is < so +1
       id_begin=id_middle+1;
     }
   }
   return id_begin;
 }
-/*int position(Page*pg,int clef)
-{
-  for (int i = 1; i < pg->nb; i++){
-    if (pg->tab[i].clef==clef) {
-      return -1;
-    }
-    if(pg->tab[i].clef>clef)
-    {
-      return i;
-    }
-  }
-  return pg->nb+1;
-}
-*/
 Page*insert(Page* b_tree,int clef)
 {
   int depth=0;
@@ -66,7 +52,7 @@ Page*insert(Page* b_tree,int clef)
   insert_case(b_tree,cell,depth);
   if (cell->pg!=NULL) {
     Page*left=new_page(b_tree->order);
-    //mettre les petits nombres dans une nouvelle page
+    //insert on new page tiny number
     for (int i =0; i <= b_tree->nb; i++) {
       left->tab[i].clef=b_tree->tab[i].clef;
       left->tab[i].pg=b_tree->tab[i].pg;
@@ -98,7 +84,7 @@ void split(Page* pg, Element*cell)
 {
   int page_order= pg->order*2+2;
   Page* right= new_page(pg->order);
-  //mettre les grands nombres dans une nouvelle page
+  //move bigger number on new page
   for (int i = page_order-pg->order; i < page_order; i++) {
     Element* tmp = create_Element(pg->tab[i].clef,pg->tab[i].pg);
     place(right, tmp);
@@ -108,7 +94,6 @@ void split(Page* pg, Element*cell)
   cell->clef=pg->tab[pg->nb].clef;
   pg->nb-=1;
   cell->pg= right;
-
 }
 int place(Page* pg,Element* cell)
 {
@@ -118,6 +103,7 @@ int place(Page* pg,Element* cell)
     return 0;
   }
   pg->nb+=1;
+  //sort table
   for (int i = pg->nb; i >=new_place; i--) {
     if (i!=new_place) {
       pg->tab[i]=pg->tab[i-1];
@@ -187,4 +173,17 @@ void display_RGD(Page * b_tree,int depth)
       display_RGD(b_tree->tab[i].pg,new_depth);
     }
   }
+}
+void free_b_arbre(Page*b_tree)
+{
+  for (int i = 0; i <= b_tree->nb; i++)
+  {
+    if (b_tree->tab[i].pg !=NULL)
+    {
+      free_b_arbre(b_tree->tab[i].pg);
+    }
+  }
+  free(b_tree->tab);
+  free(b_tree);
+
 }
