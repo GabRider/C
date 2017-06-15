@@ -1,3 +1,7 @@
+/**
+ * Author : Gabriel Strano
+ * Project : b_arbre
+ */
 #include "b_arbre.h"
 #include <stdlib.h>
 #include <stdio.h>

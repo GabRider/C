@@ -1,3 +1,7 @@
+/**
+ * Author : Gabriel Strano
+ * Project : b_arbre
+ */
 #ifndef B_ARBRE
 #define B_ARBRE
 typedef struct Element
@@ -46,7 +50,7 @@ int place(Page* pg,Element* cell);
 */
 void display_GRD(Page * b_tree);
 /**
-* Displax trre mode Root Left Right
+* Display tree mode Root Left Right
 * @param b_tree tree
 * @param depth  depth of recursion
 */

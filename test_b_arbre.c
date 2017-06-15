@@ -1,3 +1,7 @@
+/**
+ * Author : Gabriel Strano
+ * Project : b_arbre
+ */
 #include "b_arbre.h"
 #include <stdio.h>
 #include <stdbool.h>
@@ -61,8 +65,7 @@ int main(int argc, char const *argv[]) {
       }
       else
       {
-        printf("%s\n","un argument doit être manquant ou mal orthographié" );
-        //write_error(("erreur.txt",("un argument doit être manquant ou mal orthographié");
+        fprintf(stderr,"%s\n","un argument doit être manquant ou mal orthographié" );
       }
     }
   }
