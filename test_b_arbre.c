@@ -42,6 +42,7 @@ int main(int argc, char const *argv[]) {
       else
       {
         insert(tree,atoi(argv[i]));
+        //display_RGD(tree,0);
       }
     }
     if (strcmp(argv[i],"display")==0) {

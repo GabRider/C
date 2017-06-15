@@ -9,7 +9,7 @@ Element*create_Element(int clef,Page*pg)
 {
   Element* tmp = (Element*)malloc(sizeof(Element));
   tmp->clef=clef;
-  tmp->pg=NULL;
+    tmp->pg=pg;
   return tmp;
 }
 Page* new_page(int order)
@@ -65,6 +65,8 @@ Page*insert(Page* b_tree,int clef)
     b_tree->nb=1;
     b_tree->tab[0].pg=left;
     b_tree->tab[1]=*cell;
+    printf("\n" );
+
   }
   return b_tree;
 }
@@ -86,18 +88,17 @@ Page*insert_case(Page* b_tree,Element*cell,int depth)
 }
 void split(Page* pg, Element*cell)
 {
-  int page_order= pg->order*2+2;
+  int page_order= pg->nb-pg->order;
   Page* right= new_page(pg->order);
   //move bigger number on new page
-  for (int i = page_order-pg->order; i < page_order; i++) {
+  right->tab[0].pg=pg->tab[page_order].pg;
+  cell->clef=pg->tab[page_order].clef;
+  cell->pg= right;
+  for (int i = page_order+1; i <= pg->nb; i++) {
     Element* tmp = create_Element(pg->tab[i].clef,pg->tab[i].pg);
     place(right, tmp);
-    pg->nb-=1;
   }
-
-  cell->clef=pg->tab[pg->nb].clef;
-  pg->nb-=1;
-  cell->pg= right;
+  pg->nb=pg->order;
 }
 int place(Page* pg,Element* cell)
 {
